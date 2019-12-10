@@ -38,7 +38,7 @@ class Directory extends Component {
                 linkUrl: 'shop/mens'
             }
         ]
-    }
+    };
     render() {
         return (
             <div className="directory-menu">
@@ -53,6 +53,5 @@ class Directory extends Component {
         );
     };
 };
-
 
 export default Directory
