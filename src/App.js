@@ -1,12 +1,10 @@
 import React from 'react';
 import './App.css';
-import HomePage from './pages/home-page';
+import AppRouter from './routes';
 
 const App = () => {
   return (
-    <div>
-      <HomePage />
-    </div>
+    <AppRouter />
   );
 }
 
