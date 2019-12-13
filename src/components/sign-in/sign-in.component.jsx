@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { signInWithGoogle } from '../../database/firebase.utils';
+import { Link } from 'react-router-dom';
 import './sign-in.style.scss';
 
 class SignIn extends Component {
@@ -40,9 +42,20 @@ class SignIn extends Component {
                         name="password"
                         label="Password"
                         value={ this.state.password } />
-                    <CustomButton type="submit">
-                        Sign In
-                    </CustomButton>
+                    <div className="button">
+                        <CustomButton type="submit">
+                            Sign In
+                </CustomButton>
+                        <Link to='/'>
+                            <CustomButton
+                                isGoogleSignIn
+                                onClick={ signInWithGoogle }
+                                type="submit">
+                                Sign In With Google
+            </CustomButton>
+                        </Link>
+                    </div>
+
                 </form>
             </div>
         );
