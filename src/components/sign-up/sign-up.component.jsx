@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FormInput from '../form-input/form-input.component';
 import { auth, createUserProfileDocument } from '../../database/firebase.utils';
 import CustomButton from '../custom-button/custom-button.component';
-import { Link } from 'react-router-dom';
 import './sign-up.style.scss';
 
 class SignUp extends Component {
@@ -45,6 +44,7 @@ class SignUp extends Component {
                 email: ''
             });
         } catch (error) {
+            this.setState(() => ({ error: error.message }))
             console.error(error);
         }
     };
