@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     items: []
 }
 
-const toggleReducer = (state = INITIAL_STATE, action) => {
+const cartReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case TOGGLE_CART_DROPDOWN:
             return {
@@ -23,4 +23,4 @@ const toggleReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default toggleReducer;
+export default cartReducer;

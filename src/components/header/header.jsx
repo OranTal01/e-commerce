@@ -28,7 +28,8 @@ const Header = ({ currentUser, toggle, toggleCartDropdown }) => {
                             SIGN IN
                     </Link>
                     ) }
-                <div onClick={ toggleCartDropdown }>
+                <div
+                    onClick={ toggleCartDropdown }>
                     <CartIcon />
                 </div>
             </div>
@@ -37,7 +38,7 @@ const Header = ({ currentUser, toggle, toggleCartDropdown }) => {
     );
 };
 
-const mapStateToProps = ({ user: { currentUser }, toggle: { toggle } }) => ({
+const mapStateToProps = ({ user: { currentUser }, cart: { toggle } }) => ({
     currentUser,
     toggle
 });
