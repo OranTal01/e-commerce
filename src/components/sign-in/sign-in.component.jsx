@@ -64,7 +64,6 @@ class SignIn extends Component {
                             Sign In With Google
                             </CustomButton>
                     </div>
-
                 </form>
             </div>
         );
