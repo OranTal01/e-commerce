@@ -5,6 +5,7 @@ import HomePage from './pages/home/home-page';
 import ShopPage from './pages/shop/shop';
 import Header from './components/header/header';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
+import CheckoutPage from './pages/checkout/checkout-page';
 
 class AppRouter extends Component {
     render() {
@@ -15,6 +16,7 @@ class AppRouter extends Component {
                     <Route exact path='/' component={ HomePage } />
                     <Route exact path='/sign-in' render={ () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />) } />
                     <Route path='/shop' component={ ShopPage } />
+                    <Route exact path='/checkout' component={ CheckoutPage } />
                 </Switch>
             </div>
         );

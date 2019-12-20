@@ -5,11 +5,15 @@ import { auth } from '../../database/firebase.utils';
 import { connect } from 'react-redux';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { toggleCartDropdown } from '../../redux/cart/cart-action';
+import { toggleCartDropdownAction } from '../../redux/cart/cart-action';
+import { createStructuredSelector } from 'reselect';
+import { currentUserSelector } from '../../redux/user/user-selectors';
+import { toggleCartDropdownSelector } from '../../redux/cart/cart-selectors';
+import { withRouter } from 'react-router';
 import './header.style.scss';
 
 
-const Header = ({ currentUser, toggle, toggleCartDropdown }) => {
+const Header = ({ currentUser, toggleCartDropdown, toggleCartDropdownAction }) => {
     return (
         <div className="header">
             <NavLink className="logo-container" to='/'>
@@ -29,23 +33,23 @@ const Header = ({ currentUser, toggle, toggleCartDropdown }) => {
                     </Link>
                     ) }
                 <div
-                    onClick={ toggleCartDropdown }>
+                    onClick={ toggleCartDropdownAction }>
                     <CartIcon />
                 </div>
             </div>
-            { toggle ? null : <CartDropdown /> }
+            { toggleCartDropdown ? null : <CartDropdown /> }
         </div>
     );
 };
 
-const mapStateToProps = ({ user: { currentUser }, cart: { toggle } }) => ({
-    currentUser,
-    toggle
+const mapStateToProps = createStructuredSelector({
+    currentUser: currentUserSelector,
+    toggleCartDropdown: toggleCartDropdownSelector
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleCartDropdown: () => dispatch(toggleCartDropdown())
+    toggleCartDropdownAction: () => dispatch(toggleCartDropdownAction())
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

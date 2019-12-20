@@ -2,7 +2,7 @@ import { TOGGLE_CART_DROPDOWN, ADD_ITEM } from './cart-const-types';
 import { addItemToCart } from './cart-utils';
 
 const INITIAL_STATE = {
-    toggle: true,
+    toggleCartDropdown: true,
     cartItems: []
 }
 
@@ -11,7 +11,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         case TOGGLE_CART_DROPDOWN:
             return {
                 ...state,
-                toggle: !state.toggle
+                toggleCartDropdown: !state.toggleCartDropdown
             }
         case ADD_ITEM:
             return {

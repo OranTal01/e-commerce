@@ -97,8 +97,7 @@ class SignUp extends Component {
                     <CustomButton
                         type="submit">
                         Sign Up
-                        </CustomButton>
-
+                    </CustomButton>
                 </form>
             </div>
         );
