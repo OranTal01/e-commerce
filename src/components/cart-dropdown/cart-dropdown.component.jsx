@@ -7,8 +7,6 @@ import { withRouter } from "react-router";
 import { toggleCartDropdownAction } from '../../redux/cart/cart-action';
 import './cart-dropdown.style.scss';
 
-
-
 const CartDropdown = ({ cartItems, history, dispatch }) => {
     return (
         <div className="cart-dropdown">
