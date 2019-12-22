@@ -5,10 +5,10 @@ import './collection-item.style.scss';
 import { connect } from 'react-redux';
 
 
-const CollectionItem = ({ item, addItem }) => {
-    const { imageUrl, name, price } = item
+const CollectionItem = ({ item, addItem, title }) => {
+    const { imageUrl, name, price } = item;
     return (
-        <div className="collection-item ">
+        <div className="collection-item">
             <div className="image"
                 style={ { backgroundImage: `url(${imageUrl})` } } />
             <div className="collection-footer">
