@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import AppRouter from './routes';
-import { auth, createUserProfileDocument } from './database/firebase.utils';
+import { auth, createUserProfileDocument } from './fireBase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.action';
 import { connect } from 'react-redux';
 
