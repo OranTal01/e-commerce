@@ -1,34 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeItemAction, addItemToCartAction, subtractItemAction } from '../../redux/cart/cart-action';
-import './cart-checkout.style.scss';
+import { CheckoutItemContainer, ImageContainer, NameItem, QuantityItem, PriceItem, QuantityArrow, QuantityValue, RemoveButton } from './cart-checkout.style';
 
 const CheckoutItems =
     ({ removeItemFromCart, addItemQuantity, cartItem, subtractItemFromCheckout }) => {
         const { id, imageUrl, name, quantity, price } = cartItem
         return (
-            <div className="checkout-item">
-                <div className="image-container">
+            <CheckoutItemContainer>
+                <ImageContainer>
                     <img src={ imageUrl } alt="item" />
-                </div>
-                <span className="name">{ name }</span>
-                <span className="quantity">
-                    <div className="arrow" onClick={ () => subtractItemFromCheckout(cartItem) }>&#10094;</div>
-                    <span className="value">
+                </ImageContainer>
+                <NameItem>{ name }</NameItem>
+                <QuantityItem>
+                    <QuantityArrow
+                        onClick={ () => subtractItemFromCheckout(cartItem) }>&#10094;
+                        </QuantityArrow>
+                    <QuantityValue>
                         { quantity }
-                    </span>
-                    <div className="arrow" onClick={ () => addItemQuantity(cartItem) }>&#10095;</div>
-
-                </span>
-                <span className="price">{ price }</span>
+                    </QuantityValue>
+                    <QuantityArrow
+                        onClick={ () => addItemQuantity(cartItem) }>&#10095;
+                    </QuantityArrow>
+                </QuantityItem>
+                <PriceItem>{ price }</PriceItem>
                 <div>
-                    <button
-                        className="remove-button"
+                    <RemoveButton
                         onClick={ () => removeItemFromCart(id) }>
                         Remove
-                </button>
+                </RemoveButton>
                 </div>
-            </div>
+            </CheckoutItemContainer>
         )
     };
 

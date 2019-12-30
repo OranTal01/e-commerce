@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../fireBase/firebase.utils';
 import { connect } from 'react-redux';
@@ -10,35 +9,38 @@ import { createStructuredSelector } from 'reselect';
 import { currentUserSelector } from '../../redux/user/user-selectors';
 import { toggleCartDropdownSelector } from '../../redux/cart/cart-selectors';
 import { withRouter } from 'react-router';
-import './header.style.scss';
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.style';
 
 
 const Header = ({ currentUser, toggleCartDropdown, toggleCartDropdownAction }) => {
     return (
-        <div className="header">
-            <NavLink className="logo-container" to='/'>
+        <HeaderContainer>
+            <LogoContainer to='/'>
                 <Logo className="logo" />
                 { currentUser && <div>{ currentUser.displayName }</div> }
-            </NavLink>
-            <div className="options">
-                <NavLink className="option" to='/shop'>SHOP</NavLink>
-                <NavLink className="option" to='/contact'>CONTACT</NavLink>
-                { currentUser ? (
-                    <Link to='/sign-in' className='option' onClick={ () => auth.signOut() }>
-                        SIGN OUT
-                    </Link>
-                ) : (
-                        <Link className='option' to='/sign-in'>
+            </LogoContainer>
+            <OptionsContainer>
+                <OptionLink to='/shop'>SHOP</OptionLink>
+                <OptionLink to='/contact'>CONTACT</OptionLink>
+                { currentUser ?
+                    (
+                        <OptionLink to='/sign-in' onClick={ () => auth.signOut() }>
+                            SIGN OUT
+                        </OptionLink>
+                    )
+                    :
+                    (
+                        <OptionLink to='/sign-in'>
                             SIGN IN
-                    </Link>
+                        </OptionLink>
                     ) }
                 <div
                     onClick={ toggleCartDropdownAction }>
                     <CartIcon />
                 </div>
-            </div>
-            { toggleCartDropdown ? null : <CartDropdown /> }
-        </div>
+                { toggleCartDropdown ? null : <CartDropdown /> }
+            </OptionsContainer>
+        </HeaderContainer>
     );
 };
 

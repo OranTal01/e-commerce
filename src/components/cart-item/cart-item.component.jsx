@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeItemAction } from '../../redux/cart/cart-action';
-import './cart-item.style.scss';
+import { CartItemContainer, Image, ItemDetailsContainer, Item, RemoveItem } from './cart-item.style';
 
 
 const CartItem = ({ removeItemFromCartDropdown, item: { imageUrl, name, price, quantity, id } }) => {
     return (
-        <div className="cart-item">
-            <img src={ imageUrl } alt='item' />
-            <div className="item-details">
-                <span className="name">{ name }</span>
-                <span className="name">{ quantity } X ${ price }</span>
-            </div>
-            <button onClick={ () => removeItemFromCartDropdown(id) }
-                className="remove-item">
+        <CartItemContainer>
+            <Image src={ imageUrl } alt='item' />
+            <ItemDetailsContainer>
+                <Item>{ name }</Item>
+                <Item>{ quantity } X ${ price }</Item>
+            </ItemDetailsContainer>
+            <RemoveItem
+                onClick={ () => removeItemFromCartDropdown(id) }>
                 Remove
-            </button>
-        </div>
+            </RemoveItem>
+        </CartItemContainer>
     );
 };
 

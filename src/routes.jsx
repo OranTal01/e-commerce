@@ -9,16 +9,17 @@ import CheckoutPage from './pages/checkout/checkout-page';
 
 class AppRouter extends Component {
     render() {
+        const { currentUser } = this.props
         return (
-            <div>
-                <Header currentUser={ this.props.currentUser } />
+            < div >
+                <Header currentUser={ currentUser } />
                 <Switch>
                     <Route exact path='/' component={ HomePage } />
-                    <Route exact path='/sign-in' render={ () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />) } />
+                    <Route exact path='/sign-in' render={ () => currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />) } />
                     <Route path='/shop' component={ ShopPage } />
                     <Route exact path='/checkout' component={ CheckoutPage } />
                 </Switch>
-            </div>
+            </div >
         );
     }
 };
