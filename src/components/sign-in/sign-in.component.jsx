@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, signInWithGoogle } from '../../fireBase/firebase.utils';
-import './sign-in.style.scss';
-
+import { SignInContainer, SignInTitle, ButtonContainer, SignInError } from './sign-in.style';
 class SignIn extends Component {
     state = {
         email: '',
@@ -30,10 +29,10 @@ class SignIn extends Component {
 
     render() {
         return (
-            <div className="sign-in">
-                <h2>already have a account</h2>
+            <SignInContainer>
+                <SignInTitle>already have a account</SignInTitle>
                 <span>sign in with email and password</span>
-                { this.state.error && <p className="error">{ this.state.error }</p> }
+                { this.state.error && <SignInError>{ this.state.error }</SignInError> }
                 <form onSubmit={ this.handelSubmit }>
                     <FormInput
                         autoComplete="on"
@@ -51,7 +50,7 @@ class SignIn extends Component {
                         name="password"
                         label="Password"
                         value={ this.state.password } />
-                    <div className="button">
+                    <ButtonContainer>
                         <CustomButton type="submit">
                             Sign In
                         </CustomButton>
@@ -61,9 +60,9 @@ class SignIn extends Component {
                             type="submit">
                             Sign In With Google
                             </CustomButton>
-                    </div>
+                    </ButtonContainer>
                 </form>
-            </div>
+            </SignInContainer>
         );
     };
 };

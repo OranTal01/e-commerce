@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { shopCollectionSelector } from '../../redux/shop/shop-selectors';
 import Catagories from '../../components/category/category.component';
-import './category-page.style.scss';
-
 
 const CategoryPage = ({ match, shopData }) => {
     return (
