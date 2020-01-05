@@ -1,104 +1,106 @@
-import React, { Component } from 'react';
-import FormInput from '../form-input/form-input.component';
-import { auth, createUserProfileDocument } from '../../fireBase/firebase.utils';
-import CustomButton from '../custom-button/custom-button.component';
-import { SignUpContainer, SignUpTitle, SignUpError } from './sign-up.style';
+import React from 'react';
 
-class SignUp extends Component {
-    state = {
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
+
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+
+import { SignUpContainer, SignUpTitle, ErrorSignUp } from './sign-up.styles';
+
+class SignUp extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      displayName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      error: ''
+    };
+  }
+
+  handleSubmit = async event => {
+    event.preventDefault();
+
+    const { displayName, email, password, confirmPassword } = this.state;
+
+    if (password !== confirmPassword) {
+      this.setState(() => ({ error: "passwords don't match" }))
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserProfileDocument(user, { displayName });
+
+      this.setState({
         displayName: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        error: ''
+        confirmPassword: ''
+      });
+    } catch (error) {
+      console.error(error);
+      this.setState(() => ({ error: error.message }))
     }
-    handelChange = (e) => {
-        const { value, name } = e.target
-        this.setState(() => ({ [name]: value }))
-    }
+  };
 
-    handelFormSubmission = async (e) => {
-        e.preventDefault()
-        const { displayName, email, password, confirmPassword } = this.state;
+  handleChange = event => {
+    const { name, value } = event.target;
 
-        if (password !== confirmPassword) {
-            this.setState(() => ({
-                error: 'Password don\'t match, Password should be 6 characters'
-            }))
-            return;
-        }
+    this.setState({ [name]: value });
+  };
 
-        try {
-            const { user } = await auth.createUserWithEmailAndPassword(
-                email,
-                password
-            );
-
-            await createUserProfileDocument(user, { displayName });
-            this.setState({
-                displayName: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-            });
-        } catch (error) {
-            this.setState(() => ({ error: error.message }))
-            console.error(error);
-        }
-    };
-
-
-    render() {
-        const { displayName, email, password, confirmPassword, error } = this.state
-        return (
-            <SignUpContainer>
-                <SignUpTitle>I don't have a account</SignUpTitle>
-                <span>Sign up with your email and password</span>
-                { error && <SignUpError>{ error }</SignUpError> }
-                <form
-                    onSubmit={ this.handelFormSubmission }>
-                    <FormInput
-                        handelChange={ this.handelChange }
-                        label="Display Name"
-                        type="text"
-                        name="displayName"
-                        value={ displayName }
-                        required
-                    />
-                    <FormInput
-                        handelChange={ this.handelChange }
-                        label="Email"
-                        type="email"
-                        name="email"
-                        value={ email }
-                        required
-                    />
-                    <FormInput
-                        autoComplete="off"
-                        handelChange={ this.handelChange }
-                        label="Password"
-                        type="password"
-                        name="password"
-                        value={ password }
-                        required
-                    />
-                    <FormInput
-                        autoComplete="off"
-                        handelChange={ this.handelChange }
-                        label="Confirm Password"
-                        type="password"
-                        name="confirmPassword"
-                        value={ confirmPassword }
-                        required
-                    />
-                    <CustomButton
-                        type="submit">
-                        Sign Up
-                    </CustomButton>
-                </form>
-            </SignUpContainer>
-        );
-    };
-};
+  render() {
+    const { displayName, email, password, confirmPassword, error } = this.state;
+    return (
+      <SignUpContainer>
+        <SignUpTitle>I do not have a account</SignUpTitle>
+        <span>Sign up with your email and password</span>
+        <ErrorSignUp>{ error && error }</ErrorSignUp>
+        <form className='sign-up-form' onSubmit={ this.handleSubmit }>
+          <FormInput
+            type='text'
+            name='displayName'
+            value={ displayName }
+            onChange={ this.handleChange }
+            label='Display Name'
+            required
+          />
+          <FormInput
+            type='email'
+            name='email'
+            value={ email }
+            onChange={ this.handleChange }
+            label='Email'
+            required
+          />
+          <FormInput
+            type='password'
+            name='password'
+            value={ password }
+            onChange={ this.handleChange }
+            label='Password'
+            required
+          />
+          <FormInput
+            type='password'
+            name='confirmPassword'
+            value={ confirmPassword }
+            onChange={ this.handleChange }
+            label='Confirm Password'
+            required
+          />
+          <CustomButton type='submit'>SIGN UP</CustomButton>
+        </form>
+      </SignUpContainer>
+    );
+  }
+}
 
 export default SignUp;
