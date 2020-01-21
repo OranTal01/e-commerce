@@ -13,16 +13,13 @@ import { checkUserSession } from './redux/user/user.actions';
 import Header from './components/header/header.component';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { useEffect } from 'react';
 
-class App extends React.Component {
-
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser}) => {
+  useEffect(() => {
     checkUserSession()
-  };
+  }, [checkUserSession])
 
-  render() {
-    const { currentUser} = this.props
     return (
       <div>
         <Header />
@@ -42,7 +39,6 @@ class App extends React.Component {
       </div>
     );
   }
-}
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
